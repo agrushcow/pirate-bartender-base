@@ -1,0 +1,73 @@
+body {
+	font-family: aladin, sans-serif;
+	margin:0;
+}
+
+#header {
+	height:8em; 
+	border-bottom:5px solid white;
+	width:100%;
+	margin:0;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	background-color:#196881;
+}
+
+.container {
+	background-image: url(https://hacked.com/wp-content/uploads/2015/06/pirates-iceland.jpg);
+	background-size: cover;
+	height:32.2em;
+	padding-top:8em;
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
+
+.title {
+	text-align: center;
+	font-size:4em;
+	font-weight:900;
+	color:lightgray;
+}
+
+.content {
+	border:5px ridge black;
+	height:23em;
+	width:50%;
+	background-color: azure;
+	margin:0 auto;
+	border-radius:1%;
+}
+
+.question {
+	width:80%;
+	margin:0 auto;
+	text-align:center;
+	margin-top:5em;
+}
+
+.question h3 {
+	font-size:1.8em;
+}
+
+.btn-container {
+	width:100%;
+	margin:0 auto;
+	margin-top:2em;
+	text-align: center;
+}
+
+.btn {
+    padding: 1em 3em;
+    margin: 0.8em;
+    font-size: 1.25em;
+    font-weight: 900;
+    border-radius: 5%;
+    border: 2px solid black;
+}
+
+.btn:hover {
+	background-color:black;
+	color:white;
+	cursor:pointer;
+}
