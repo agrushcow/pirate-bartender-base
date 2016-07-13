@@ -7,12 +7,27 @@ var mixArr = {
 	fruity: ["Slice of orange", "dash of cassis", "cherry on top"]	
 }
 
-var questionsArr = [		
-		'Do ye like yer drinks strong?',
-		'Do ye like it with a salty tang?',
-		'Are ye a lubber who likes it bitter?',
-		'Would ye like a bit of seetness with yer poison?',
-		"Are ye one for a fruity finish?"
+var questionsArr = [
+	{		
+		flavor: 'Strong',
+		text: 'Do ye like yer drinks strong'
+	},
+	{
+		flavor: 'Salty',
+		text: 'Do ye like yer drinks strong?'
+	},
+	{
+		flavor: 'Bitter',
+		text: 'Are ye a lubber who likes it bitter?'
+	},
+	{
+		flavor: 'Sweet',
+		text: 'Would ye like a bit of seetness with yer poison?'
+	},
+	{
+		flavor: 'Fruity',
+		text: "Are ye one for a fruity finish?"
+	},
 ];
 
 /*================MODEL======================*/
@@ -24,12 +39,17 @@ var Bartender = function(mix, questions){
 }
 
 //some other functions
-Bartender.prototype.createDrink = function(){
+Bartender.prototype.createDrink = function(flavor, ingredient){
+	//this.flavor = this.mixArr[this.answers];
+	//this.ingredient = this.mixArr[this.answers];
+}
 
+Bartender.prototype.increment = function() {
+	this.currentQuestion++;
 }
 
 Bartender.prototype.setAnswer = function(answer) {
-	this.answer.push(answer);
+	this.answers.push(answer);
 }
 
 Bartender.prototype.getCurrentQuestion = function(){
@@ -43,29 +63,33 @@ var View  = function(){
     this.drink = $('.drink');
     this.yes = $('#yes');
     this.no = $('#no');
+    this.currentFlavor = '';
 
-    this.yes.click(this.yesBtnHandler);
-    this.no.click(this.noBtnHandler);
-    this.noClick = null;
+    this.yes.click(this.yesBtnHandler.bind(this));
+    this.no.click(this.noBtnHandler.bind(this));
+    this.onClick = null;
 }
 
 View.prototype.displayQuestion = function(question){
-    this.questions.html(question);
+    this.questions.html(question.text);
+    this.currentFlavor = question.flavor;
 }
 
 View.prototype.yesBtnHandler = function() {
-	this.onClick(true, 'strong');
+	console.log("Yes btn clicked, view.")
+	this.onClick(true, 'Strong');
 }
 
 View.prototype.noBtnHandler = function() {
 	this.onClick(false, 'Strong');
 }
 
-
 /*===============CONTROLLER=================*/
 var Controller = function(model, view){
     this.model = model;
     this.view = view;
+
+    this.view.onClick = this.answerQuestion.bind(this);
 
     //do some binding here
 }
@@ -80,8 +104,11 @@ Controller.prototype.showQuestion = function() {
 
 Controller.prototype.answerQuestion = function(answer, flavor) {
 	if (answer) {
+		console.log("The yes button was clicked, controller.")
 		this.model.setAnswer(answer);
 	}
+	this.model.increment(); // go to next question
+	this.view.displayQuestion(this.model.getCurrentQuestion());
 }
 
 /*========================APP========================*/
